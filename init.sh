@@ -27,7 +27,7 @@ function clone_repository_banco() {
     
     if [[ "$RESPOSTA" =~ ^[Ss]$ ]]; then
         echo '-> Clonando repositório de banco de dados...'
-        source "Oberon-Config-AWS/database/clon_repo.sh"
+        source "shadow_slave_infra/database/clon_repo.sh"
         echo '-> Clonagem concluída.'
     else
         echo '-> Clonagem de banco de dados foi ignorada.'
