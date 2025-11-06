@@ -3,7 +3,6 @@
 SEPARATOR="══════════════════════════════════════════════════════════════════════════════════"
 
 # Variáveis do Diretório e Repositório
-TARGET_DIR="shadow"
 REPO_URL="https://github.com/JhoelDiego2/shadow_slave_banco.git"
 
 REPO_NAME="shadow_slave_banco"
@@ -25,16 +24,6 @@ check_and_clone_repo() {
 
     echo "-> Iniciando verificação a partir de: $(pwd)"
 
-    if [ -d "$TARGET_DIR" ]; then
-        echo "-> Diretório '$TARGET_DIR' encontrado. Navegando..."
-        cd "$TARGET_DIR"
-        echo "-> Diretório atual: $(pwd)"
-    else
-        echo "ERRO: O diretório '$TARGET_DIR' não foi encontrado em sua Home (~)."
-        echo "Por favor, execute o setup inicial (init.sh) para criar a pasta."
-        exit 1 
-    fi
-
     # 2. Lógica de Clonagem (dentro de ~/oberon)
     print_header "CLONAGEM DO REPOSITÓRIO: $REPO_NAME"
 
@@ -46,12 +35,9 @@ check_and_clone_repo() {
         
         if [ $? -ne 0 ]; then
             echo "ERRO: Falha ao clonar o repositório. Abortando provisão."
-            cd .. # Volta para a Home antes de falhar
-            exit 1
         fi
     fi
 
-    # 3. Retorno para o diretório Home (Mantém o fluxo limpo)
     cd ~
     echo ""
     echo "CLONAGEM CONCLUÍDA. Retornando ao diretório: $(pwd)"

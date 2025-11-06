@@ -26,7 +26,6 @@ run_db() {
     
     # AÇÃO CRÍTICA: Muda o diretório de trabalho para a HOME (Contexto)
     cd ~
-    cd shadow 
     cd shadow_slave_banco
     sudo docker build -t $DB_IMAGE_NAME 
 
@@ -37,19 +36,6 @@ run_db() {
         return 1
     fi
 
-    echo "-> 3/3: Iniciando container '$DB_CONTAINER_NAME' na rede padrão..."
-    sudo docker run -d \
-        --name $DB_CONTAINER_NAME \
-        -p 3306:3306 \
-        -e MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD \
-        $DB_IMAGE_NAME
-
-    if [ $? -ne 0 ]; then
-        echo "ERRO: Falha ao iniciar o container do DB. Verifique os logs."
-        return 1
-    fi
-    
-    # RESTAURAÇÃO DE FLUXO: VOLTA PARA A RAIZ DO PROJETO ANTES DE TERMINAR
     cd "$PROJECT_ROOT" 
 
     print_header "BANCO DE DADOS INICIADO"

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: shadow-banco-image
+    container_name: shadow-banco-container
+    environment:
+    
+    volumes:
+      - db_data:/var/lib/postgresql/data 
+    
+    restart: unless-stopped 
+
+  web:
+    image: ${WEB_IMAGE} 
+    container_name: shadow-app-container
+    ports:
+      - "80:80"
+    env_file:
+      - .env 
+    depends_on:
+      - db 
+    restart: always
+      
+volumes:
+  db_data:

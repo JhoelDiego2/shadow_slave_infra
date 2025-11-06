@@ -2,8 +2,6 @@
 
 
 SEPARATOR="══════════════════════════════════════════════════════════════════════════════════"
-# TARGET_DIR agora é global e centraliza o nome da pasta
-TARGET_DIR="oberon" 
 
 PROJECT_ROOT=$(pwd) 
 
@@ -19,18 +17,7 @@ print_header() {
     echo ""
 }
 
-create_target_directory() {
-    print_header "SETUP INICIAL DE DIRETÓRIOS"
-    
-    read -p "O diretório '$TARGET_DIR' será criado em sua home (~/$TARGET_DIR). Continuar? (S/N): " RESPOSTA
-    if [[ "$RESPOSTA" =~ ^[Ss]$ ]]; then
-        mkdir -p "$TARGET_DIR"
-        echo "-> Diretório '$TARGET_DIR' criado ou já existente."
-        echo "-> Diretório atual: $(pwd)"
-    else
-        echo "-> Criação de diretório cancelada. Abortando Setup."
-    fi
-}
+
 
 
 
@@ -105,6 +92,5 @@ run_container_banco
 
 print_header "FINALIZAÇÃO DO SETUP"
 echo "O script de configuração foi concluído. Verifique o output para erros."
-echo "Os repositórios foram clonados em (~/$TARGET_DIR)."
 echo "Próximo passo: Use os comandos de start (run_db.sh e run_web.sh) para iniciar os serviços!"
 print_separator
