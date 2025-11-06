@@ -4,8 +4,10 @@ services:
   db:
     image: shadow-banco-image
     container_name: shadow-banco-container
+    ports:
+      - "3306:3306"
     volumes:
-      - db_data:/var/lib/postgresql/data 
+      - db_data:/var/lib/mysql
     
     restart: unless-stopped 
 
