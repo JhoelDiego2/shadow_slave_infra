@@ -32,32 +32,7 @@ create_target_directory() {
     fi
 }
 
-function create_users_and_permissions() {
-    print_header "CRIAÇÃO DE USUÁRIOS E PERMISSÕES"
-    read -p 'Criar usuários da Oberon? (S/N): ' RESPOSTA
-    
-    if [[ "$RESPOSTA" =~ ^[Ss]$ ]]; then
-        echo '-> Criando e configurando usuários...'
-        source "Oberon-Config-AWS/user_config/user_group.sh" #
-        echo '-> Configuração de usuários concluída.'
-    else
-        echo '-> Criação de usuários foi ignorada.'
-    fi
-    # NOTA: Não é necessário 'cd ..' e 'cd $TARGET_DIR' aqui, pois não alteramos o diretório de trabalho.
-}
 
-function clone_repository() {
-    print_header "CLONAGEM DE REPOSITÓRIOS - WEB"
-    read -p 'Clonar o repositório da Oberon-Aplicação-Web? (S/N): ' RESPOSTA
-    
-    if [[ "$RESPOSTA" =~ ^[Ss]$ ]]; then
-        echo '-> Clonando repositório de site...'
-        source "Oberon-Config-AWS/web-site/clon_repo.sh"
-        echo '-> Clonagem concluída.'
-    else
-        echo '-> Clonagem de site foi ignorada.'
-    fi
-}
 
 function clone_repository_banco() {
     print_header "CLONAGEM DE REPOSITÓRIOS - BANCO DE DADOS"
@@ -72,18 +47,6 @@ function clone_repository_banco() {
     	fi
 }
 
-function configure_env_files() {
-    print_header "CONFIGURAÇÃO DE ARQUIVOS .ENV "
-    read -p 'Configurar o .env e .env.dev? (S/N): ' RESPOSTA
-    
-    if [[ "$RESPOSTA" =~ ^[Ss]$ ]]; then
-        echo '-> Configurando variáveis de ambiente...'
-        source "Oberon-Config-AWS/web-site/config_env.sh"
-        echo '-> Configuração de .env concluída.'
-    else
-        echo '-> Configuração de .env foi ignorada.'
-    fi
-}
 
 function install_docker_prerequisites() {
     print_header "SETUP DE PRÉ-REQUISITOS DO HOST"
@@ -112,19 +75,6 @@ function run_container_banco() {
     fi
 }
 
-function run_container_site() {
-    print_header "INICIANDO CONTAINER DA APLICAÇÃO WEB"
-    
-    read -p 'Criar e iniciar o container da Aplicação Web? (S/N): ' RESPOSTA
-    if [[ "$RESPOSTA" =~ ^[Ss]$ ]]; then
-        echo '-> Construindo e iniciando container do Site...'
-        cd
-        source "$PROJECT_ROOT/docker_config/config_docker_site.sh" 
-        echo '-> Container do Site iniciado.'
-    else
-        echo '-> Container do Site ignorado.'
-    fi
-}
 
 print_separator
 echo "║             SCRIPT DE CONFIGURAÇÃO INICIAL DA OBERON                     ║"
@@ -147,16 +97,11 @@ cd ~
 create_target_directory # Cria e navega para ~/oberon
 
 # 2. FLUXO DE SETUP
-clone_repository
 clone_repository_banco
-configure_env_files
 
 install_docker_prerequisites 
 
-cd "$PROJECT_ROOT" 
-
 run_container_banco
-run_container_site
 
 print_header "FINALIZAÇÃO DO SETUP"
 echo "O script de configuração foi concluído. Verifique o output para erros."

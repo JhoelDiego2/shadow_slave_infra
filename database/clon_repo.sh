@@ -3,10 +3,10 @@
 SEPARATOR="══════════════════════════════════════════════════════════════════════════════════"
 
 # Variáveis do Diretório e Repositório
-TARGET_DIR="oberon"
-REPO_URL="https://github.com/oberon-sis/Oberon-Banco-De-Dados.git"
+TARGET_DIR="shadow"
+REPO_URL="https://github.com/JhoelDiego2/shadow_slave_banco.git"
 
-REPO_NAME="Oberon-Banco-De-Dados"
+REPO_NAME="shadow_slave_banco"
 
 print_separator() {
     echo "║$SEPARATOR║"

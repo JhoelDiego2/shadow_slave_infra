@@ -2,13 +2,10 @@
 
 SEPARATOR="══════════════════════════════════════════════════════════════════════════════════"
 
-DB_IMAGE_NAME="oberon-banco-image"
-DB_CONTAINER_NAME="oberon-banco-c"
+DB_IMAGE_NAME="shadow-banco-image"
+DB_CONTAINER_NAME="shadow-banco-container"
 ROOT_PASSWORD="urubu100"
 
-# O caminho para o Dockerfile do banco de dados, a partir da raiz do projeto
-DOCKERFILE_PATH="Oberon-Config-AWS/Docker/banco_de_dados/Dockerfile" 
-# NOTA: O PROJECT_ROOT deve ser definido no init.sh e herdado aqui.
 
 print_header() {
     echo ""
@@ -29,9 +26,9 @@ run_db() {
     
     # AÇÃO CRÍTICA: Muda o diretório de trabalho para a HOME (Contexto)
     cd ~
-    
-    # Execução do build com Contexto = Home (.), resolvendo o problema do COPY
-    sudo docker build -t $DB_IMAGE_NAME -f $DOCKERFILE_PATH .
+    cd shadow 
+    cd shadow_slave_banco
+    sudo docker build -t $DB_IMAGE_NAME 
 
     if [ $? -ne 0 ]; then
         echo "ERRO: Falha na construção da imagem '$DB_IMAGE_NAME'. Abortando."
