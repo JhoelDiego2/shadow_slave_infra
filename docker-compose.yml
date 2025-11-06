@@ -4,8 +4,6 @@ services:
   db:
     image: shadow-banco-image
     container_name: shadow-banco-container
-    environment:
-    
     volumes:
       - db_data:/var/lib/postgresql/data 
     
